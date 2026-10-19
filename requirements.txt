@@ -1,0 +1,35 @@
+# ==========================================================================
+#  PSI Top · backend Siemens (OPC UA + S7comm) -> WebSocket
+#  Dependencias de EJECUCIÓN. Instalación:
+#      python -m venv venv
+#      venv\Scripts\activate          (Windows)   |  source venv/bin/activate (Linux)
+#      pip install -r requirements.txt
+#  O directamente:  scripts\setup.bat  |  scripts/setup.sh
+#
+#  Regla: todo lo que el código importa está declarado aquí, aunque pip ya
+#  lo instale como dependencia de otro paquete.
+#  Python soportado: 3.10 – 3.13.
+# ==========================================================================
+
+# --- Servidor web y API ----------------------------------------------------
+fastapi==0.115.12            # Framework de la API + OpenAPI (/docs)
+uvicorn[standard]==0.34.0    # Servidor ASGI; [standard] trae websockets y httptools
+websockets>=12.0,<17         # Protocolo WebSocket (lo usa uvicorn y tools/cliente_ws.py)
+
+# --- Configuración y validación -------------------------------------------
+pydantic==2.10.6             # Modelos y validación de los cuerpos JSON
+pydantic-settings==2.8.1     # Settings desde .env (prefijo PLC_)
+python-dotenv>=1.0           # Lectura del .env (lo usa pydantic-settings)
+PyYAML==6.0.2                # Filtro opcional de DBs (app/config/tags_filter.yaml)
+
+# --- Comunicación con los PLCs Siemens ------------------------------------
+asyncua==1.1.5               # Cliente OPC UA asíncrono (S7-1500, S7-1200 FW>=4.4)
+python-snap7==3.0.0          # S7comm por el puerto 102 (S7-1200 sin OPC UA, S7-300/400).
+                             # Incluye la librería snap7 nativa en el wheel: no hay DLL
+                             # que instalar aparte en Windows x64 / Linux x64.
+
+# --- Seguridad -------------------------------------------------------------
+cryptography>=42.0.0         # Fernet: cifra las contraseñas guardadas en datos/plcs.json
+
+# --- Zona horaria ----------------------------------------------------------
+tzdata==2025.2               # Windows no trae base de datos de zonas horarias

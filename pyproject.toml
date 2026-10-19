@@ -1,0 +1,20 @@
+[project]
+name = "psi-top-backend-siemens"
+version = "1.0.0"
+description = "Backend de conexión con PLCs Siemens (OPC UA + S7comm) y transmisión en tiempo real por WebSocket."
+requires-python = ">=3.10,<3.14"
+readme = "README.md"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+exclude = ["venv", ".venv", "datos", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B"]
+ignore = ["E501", "E741", "B008", "B904", "B905"]

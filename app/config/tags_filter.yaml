@@ -1,0 +1,7 @@
+# Filtro opcional de Data Blocks para el driver OPC UA.
+#
+# Si `include_dbs` tiene elementos, SOLO se descubren esos DB; si está vacío o
+# comentado, se descubren todos. También se puede definir por entorno:
+#     PLC_TAGS_FILTER_DBS=["DB_Datos","DB_Recetas"]
+# (la variable de entorno tiene prioridad sobre este fichero).
+include_dbs: []
