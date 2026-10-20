@@ -1,0 +1,26 @@
+# No meter en la imagen nada local ni secreto
+.git
+.gitignore
+venv
+.venv
+venv*/
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.ruff_cache
+.vscode
+.idea
+datos
+.env
+*.log
+build
+dist
+tests
+tools
+docs
+scripts
+requirements-dev.txt
+*.tar
+*.tar.gz
+*.tgz

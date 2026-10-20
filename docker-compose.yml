@@ -1,0 +1,35 @@
+# ==========================================================================
+#  PSI Top · backend Siemens — despliegue con Docker Compose
+#  En el NAS:   docker compose up -d --build
+#  Logs:        docker compose logs -f
+#  Parar:       docker compose down
+# ==========================================================================
+services:
+  psitop:
+    build: .
+    image: psi-top-backend:1.0.0
+    container_name: psi_top_backend
+    restart: unless-stopped
+    # Variables del servicio (PLC_API_KEY, PLC_CORS_ORIGINS, etc.)
+    env_file:
+      - .env
+    environment:
+      PLC_API_HOST: 0.0.0.0
+      PLC_API_PORT: 8000
+      PLC_DATOS_DIR: /data
+      TZ: America/Lima
+    ports:
+      # PUERTO_EN_EL_NAS:PUERTO_DEL_CONTENEDOR. Cambia el de la izquierda si 8000 está ocupado.
+      - "8000:8000"
+    volumes:
+      # plcs.json, tags, lista blanca, auditoría y la clave .clave sobreviven a
+      # reinicios y a reconstrucciones de la imagen (volumen "psitop_datos").
+      - psitop_datos:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  psitop_datos:

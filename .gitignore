@@ -22,3 +22,7 @@ dist/
 *.log
 .vscode/
 .idea/
+
+# --- Paquetes para subir al NAS ---
+*.tgz
+*.tar.gz
